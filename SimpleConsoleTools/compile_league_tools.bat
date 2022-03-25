@@ -1,0 +1,1 @@
+"C:\LLVM\bin\clang.exe" -g -Wall LOLChampionLoader.c -o tek.exe

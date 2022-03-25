@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "text_input_handling_system.h": "c",
+        "text_col_codes.h": "c"
+    }
+}

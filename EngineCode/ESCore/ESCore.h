@@ -1,0 +1,3 @@
+#ifndef ENGINE_SCRIPT_CORE
+#define ENGINE_SCRIPT_CORE
+#endif
