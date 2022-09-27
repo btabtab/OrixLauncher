@@ -1,3 +1,7 @@
+/*
+This is the memory managment system that the Kettle Engine uses to
+handle objects and dynamically allocating memory for the application.
+*/
 #ifndef DYNALLOCENGINE
 #define DYNALLOCENGINE
 
@@ -10,6 +14,7 @@
 
 #define OBJECT_SET_LIMIT 30
 
+#ifndef STRUCTURES
 
 typedef struct KData
 {
@@ -25,11 +30,6 @@ typedef struct KObject
 	bool flag_delete;
 }
 KObject;
-
-KObject* voidToKobj(void* ptr)
-{
-	return (KObject*)ptr;
-}
 
 /*
 This is used to pass functions to the manager to control
@@ -48,6 +48,58 @@ typedef struct KettleObjectSet
 }
 KettleObjectSet;
 
+typedef struct DynallocCore
+{
+	KObject* list;
+	int count;
+
+	KettleObjectSet Object_types[OBJECT_SET_LIMIT];
+	int type_count;
+}
+DynallocCore;
+
+
+#endif
+
+#ifndef DYNALLOCCORE
+#define DYNALLOCCORE
+
+DynallocCore** getDynallocCorePtrAddress();
+DynallocCore* getDynallocCore();
+int getDynallocObjCount();
+void initDynallocCore();
+KObject* getKobj(int index);
+KObject* getLastKobj();
+void registerNewKObject(KettleObjectSet KOS);
+KettleObjectSet* getObjectType(KObject* kobj);
+void createKettleData(KObject* kobj);
+KObject newKObject(KettleString name);
+void runConstructor(KObject* kobj);
+void runDeconstructor(KObject* kobj);
+void runProcess(KObject* kobj);
+void runRender(KObject* kobj);
+void resizeDynallocMemoryUp(KettleString name);
+void createObjectInstance(KettleString name);
+void copyKobjList(KObject* destination, int dest_length, KObject* source, int source_length);
+void swapKobjs(KObject* a, KObject* b);
+int getAmountOfDeleteFlaggedObjects();
+void organiseKobjsByDeleteTag(KObject* list, int list_length);
+void resizeDynallocMemoryDown(int amount);
+void cleanUpDynallocCore();
+void processKObjs();
+void renderKObjs();
+void processDynalloc();
+
+#endif
+
+#ifndef DYNALLOC_DEFINES
+#define DYNALLOC_DEFINES
+
+KObject* voidToKobj(void* ptr)
+{
+	return (KObject*)ptr;
+}
+
 KettleObjectSet newKOBJSet(	KettleString name,
 							KettleObjectWrapperFunction init,
 							KettleObjectWrapperFunction deinit,
@@ -65,15 +117,6 @@ KettleObjectSet newKOBJSet(	KettleString name,
 	return ret;
 }
 #define OBJECT_SET_LIMIT 30
-typedef struct DynallocCore
-{
-	KObject* list;
-	int count;
-
-	KettleObjectSet Object_types[OBJECT_SET_LIMIT];
-	int type_count;
-}
-DynallocCore;
 
 DynallocCore** getDynallocCorePtrAddress()
 {
@@ -98,6 +141,11 @@ void initDynallocCore()
 KObject* getKobj(int index)
 {
 	return &getDynallocCore()->list[index];
+}
+
+KObject* getLastKobj()
+{
+	return getKobj(getDynallocObjCount()-1);
 }
 
 void registerNewKObject(KettleObjectSet KOS)
@@ -163,7 +211,7 @@ void runRender(KObject* kobj)
 
 void resizeDynallocMemoryUp(KettleString name)
 {
-	printf("\nresizeDynallocMemoryUp\n");
+	// printf("\nresizeDynallocMemoryUp\n");
 	getDynallocCore()->list = voidToKobj(realloc(getDynallocCore()->list, sizeof(KObject) * (++getDynallocCore()->count)));
 
 	(*getKobj(getDynallocCore()->count-1)) = newKObject(name);
@@ -271,6 +319,17 @@ void renderKObjs()
 }
 
 #endif
+
+/*
+This will run the functions that Dynalloc needs
+to run every single cycle.
+*/
+void processDynalloc()
+{
+	processKObjs();
+	cleanUpDynallocCore();
+}
+
 #ifndef DUMMY_CODE
 #define DUMMY_CODE
 #define DUMMY_OBJECT_NAME newKettleString("DUMMY_OBJECT")
@@ -290,7 +349,6 @@ DummyStruct* voidToDmmyptr(void* ptr)
 {
 	return (DummyStruct*)ptr;
 }
-
 void dummyProcess(KObject* kobj)
 {
 	printf("\ndummy process\n");
@@ -363,13 +421,9 @@ void dummySystem()
 
 	// resizeDynallocMemoryDown();
 }
-/*
-This will run the functions that Dynalloc needs
-to run every single cycle.
-*/
-void processDynalloc()
-{
-	processKObjs();
-	cleanUpDynallocCore();
-}
+#endif
+
+//This function will contain all register instances written by the user.
+void registerDynallocStuff();
+
 #endif

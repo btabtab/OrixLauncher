@@ -2,13 +2,16 @@
 Finish wrapping the function pointers and camera into the UIElement struct as well
 as adding button functionality that can carry out a function pointed to by the function pointer.
 */
+#include <string.h>
+#include <stdlib.h>
 
 #include <raylib.h>
+
 #include "GenericStructs.h"
 #include "Rendering.h"
 #include "GenericFunctions.h"
 #include "../RaylibHandling.h"
-#include <string.h>
+#include "KettleString.h"
 
 #ifndef UI
 #define UI
@@ -28,7 +31,7 @@ typedef void (*UIButtonFunctionPTR)();
 
 typedef struct UIElement
 {
-	char name[30];
+	KettleString name;
 	RealVec position;
 	RealVec dimensions;
 	int type;
@@ -37,7 +40,7 @@ typedef struct UIElement
 	RenderTexture r_texture;
 	int is_movable;
 	void* data;
-	void* func_ptr;
+	bool* flag_to_write_to;
 }
 UIElement;
 
@@ -63,16 +66,15 @@ Cursor;
 // void renderMultipleUIElements(UIElement* ui_arr, int ui_count);
 // void draw3DWorldToUIElement(UIElement* ui, Camera camera, void (*WorldRenderFunction)(Camera cam));
 
-#include <stdlib.h>
-UIElement generateUIElement(int dim_x, int dim_y, int pos_x, int pos_y, char* name, int type, void* function)
+UIElement generateUIElement(int dim_x, int dim_y, int pos_x, int pos_y, KettleString name, int type, bool* flag_ptr, Colour colour)
 {
 	UIElement ret;
 	ret.texture = NULL;
-	ret.col = (Colour){120, 120, 120, 255};
+	ret.col = colour;
 	ret.dimensions = (RealVec){dim_x, dim_y, 0};
 	ret.position = (RealVec){pos_x, pos_y, 0};
 
-	strcpy(ret.name, name);
+	copyKettleString(&ret.name, &name);
 
 	ret.type = type;
 	ret.is_movable = false;
@@ -88,7 +90,7 @@ UIElement generateUIElement(int dim_x, int dim_y, int pos_x, int pos_y, char* na
 		break;
 
 	case UI_BUTTON:
-		ret.func_ptr = function;
+		ret.flag_to_write_to = flag_ptr;
 		break;
 	default:
 		break;
@@ -188,15 +190,7 @@ bool checkUIInteraction(UIElement* ui, Cursor* cursor)
 			cursor->state = CURSOR_CLICK;
 			return true;
 		}
-		if(IsMouseButtonDown(MOUSE_LEFT_BUTTON))
-		{
-			cursor->selected_element = ui;
-			cursor->state = CURSOR_HELD;
-			return true;
-		}
-		cursor->selected_element = NULL;
-		cursor->state = CURSOR_HOVER;
-		return true;
+		return false;
 	}
 	cursor->selected_element = NULL;
 	cursor->state = CURSOR_BLANK;
@@ -205,7 +199,7 @@ bool checkUIInteraction(UIElement* ui, Cursor* cursor)
 
 void UIButtonPress(UIElement* ui)
 {
-	((UIButtonFunctionPTR)(ui->func_ptr))();
+	(*ui->flag_to_write_to) = !(*ui->flag_to_write_to);
 }
 
 void checkMultipleElements(UIElement* ui_arr, int ui_count, Cursor* cursor)
@@ -263,14 +257,13 @@ void draw3DWorldToUIElements(UIElement* ui_arr, int ui_count)
 	{
 		if(ui_arr[i].type == UI_CAMERA)
 		{
-			draw3DWorldToUIElement(&ui_arr[i], *((Camera*)(ui_arr[i].data)), (ui_arr[i].func_ptr));
+			// draw3DWorldToUIElement(&ui_arr[i], *((Camera*)(ui_arr[i].data)), (UIRenderFunctionPTR)(ui_arr[i].render_function));
 		}
 	}
 }
 
 void checkForUIButtonPress(UIElement* ui_arr, int ui_count, Cursor* cursor)
 {
-
 	for(int i = 0; i != ui_count; i++)
 	{
 		if(ui_arr[i].type == UI_BUTTON)
@@ -283,19 +276,29 @@ void checkForUIButtonPress(UIElement* ui_arr, int ui_count, Cursor* cursor)
 	}
 }
 
-
-void UIMenu(UIElement* ui_elements, int amount)
+void UIMenu(UIElement* ui_elements, int amount, bool draw_cursor, bool debug)
 {
+	if(debug)
+	{
+		char buffer[60];
+		sprintf(buffer, "Mouse X: %i, Mouse Y: %i", (int)GetMousePosition().x, (int)GetMousePosition().y);
+		DrawText(buffer, 0, 0, 30, BLACK);
+	}
+
 	renderMultipleUIElements(ui_elements, amount);
 	updateMainCursor();
-	renderCursor(getMainCursor());
-	static bool process_cycle = false;
-	if(process_cycle)
+	if(!draw_cursor)
+	{
+		renderCursor(getMainCursor());
+	}
+	// static bool process_cycle = false;
+	// if(process_cycle)
 	{
 		checkMultipleElements(ui_elements, amount, getMainCursor());
 		updateUIElements(ui_elements, amount, getMainCursor());
+		checkForUIButtonPress(ui_elements, amount, getMainCursor());
 	}
-	process_cycle = !process_cycle;
+	// process_cycle = !process_cycle;
 }
 
 #endif
