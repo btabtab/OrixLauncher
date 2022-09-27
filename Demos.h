@@ -8,6 +8,7 @@
 #include "RaylibHandling.h"
 #include "EngineCode/UI.h"
 #include "EngineCode/KettleRenderer.h"
+#include "EngineCode/KettleString.h"
 
 Light* getLight()
 {
@@ -17,7 +18,8 @@ Light* getLight()
 
 void VertexLightingDemo()
 {
-	Camera camera = startup("Kettle renderer 1.0 Demo", 600, 600);
+	Camera camera;
+	startup("Kettle renderer 1.0 Demo", 600, 600, &camera);
 
 	// Environment environment = initEnvironment();
 	Polygon p[2] = {testPolygon(6.f), testPolygon(6.f)};
@@ -114,12 +116,14 @@ void UIDrawToDemo(Camera cam)
 
 void UIDemo()
 {
-	Camera cam = startup("UI demo", 600, 600);
+	Camera cam;
+	startup("UI demo", 600, 600, &cam);
+	
 	SetCameraMode(cam, CAMERA_ORBITAL);
 
-	UIElement small_ui = generateUIElement(150, 150, 20, 20, "A", UI_CAMERA, NULL);
+	UIElement small_ui = generateUIElement(150, 150, 20, 20, newKettleString("A"), UI_CAMERA, NULL, J_RED);
 
-	UIElement big_ui = generateUIElement(400, 400, 170, 20, "B", UI_CAMERA, NULL);
+	UIElement big_ui = generateUIElement(400, 400, 170, 20, newKettleString("B"), UI_CAMERA, NULL, J_RED);
 
 	while(!WindowShouldClose())
 	{
@@ -145,15 +149,17 @@ void UIDemo()
 
 void UIDemoMovableElement()
 {
-	Camera cam = startup("UI demo", 600, 600);
+	Camera cam;
+	startup("UI demo", 600, 600, &cam);
+	
 	UIDrawToDemo(cam);
 	SetCameraMode(cam, CAMERA_ORBITAL);
 
 	UIElement element_arr[3] =
 	{
-		generateUIElement(150, 150, 20, 20, "A", UI_CAMERA, NULL),
-		generateUIElement(400, 400, 170, 20, "B", UI_CAMERA, NULL),
-		generateUIElement(70, 70, 600, 170, "C", UI_TOKEN, NULL),
+		generateUIElement(150, 150, 20, 20, newKettleString("A"), UI_CAMERA, NULL, J_WHITE),
+		generateUIElement(400, 400, 170, 20, newKettleString("B"), UI_CAMERA, NULL, J_WHITE),
+		generateUIElement(70, 70, 600, 170, newKettleString("C"), UI_TOKEN, NULL, J_WHITE),
 	};
 
 
@@ -213,7 +219,9 @@ void renderPolygonScene(Camera cam)
 
 void polygonLightingUITest()
 {
-	Camera cam = startup("Kettle renderer 2.0 Demo", 800, 800);
+	Camera cam;
+	startup("Kettle renderer 2.0 Demo", 800, 800, &cam);
+
 	UIDrawToDemo(cam);
 	SetCameraMode(cam, CAMERA_ORBITAL);
 
@@ -222,11 +230,11 @@ void polygonLightingUITest()
 
 	UIElement element_arr[] =
 	{
-		generateUIElement(500, 300, 20, 20, "A", UI_CAMERA, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, "B", UI_TOKEN, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, "C", UI_TOKEN, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, "D", UI_TOKEN, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, "E", UI_TOKEN, NULL),
+		generateUIElement(500, 300, 20, 20, newKettleString("A"), UI_CAMERA, NULL, J_WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("B"), UI_TOKEN, NULL, J_WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("C"), UI_TOKEN, NULL, J_WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("D"), UI_TOKEN, NULL, J_WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("E"), UI_TOKEN, NULL, J_WHITE),
 	};
 
 	while(!WindowShouldClose())

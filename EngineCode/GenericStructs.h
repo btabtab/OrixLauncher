@@ -23,4 +23,7 @@ typedef struct Colour
 }
 Colour;
 
+#define J_WHITE (Colour){0xff, 0xff, 0xff, 0xff}
+#define J_RED (Colour){0xff, 0x00, 0x00, 0xff}
+
 #endif

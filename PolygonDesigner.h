@@ -40,7 +40,8 @@ void polygonDesignerTool3DScene(Camera cam)
 
 void polygonDesignerTool()
 {
-	Camera cam = startup("Polygone DesignerTool", 800, 800);
+	Camera cam;
+	startup("Polygone DesignerTool", 800, 800, &cam);
 	UIDrawToDemo(cam);
 	SetCameraMode(cam, CAMERA_ORBITAL);
 
@@ -54,12 +55,12 @@ void polygonDesignerTool()
 
 	UIElement element_arr[] =
 	{
-		generateUIElement(500, 300, 20, 20, "A", UI_CAMERA, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, "B", UI_TOKEN, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, "C", UI_BUTTON, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, "D", UI_BUTTON, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, "E", UI_BUTTON, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y + 90, "F", UI_BUTTON, NULL),
+		generateUIElement(500, 300, 20, 20, newKettleString("A"), UI_CAMERA, NULL, J_RED),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("B"), UI_TOKEN, NULL, J_RED),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("C"), UI_BUTTON, NULL, J_RED),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("D"), UI_BUTTON, NULL, J_RED),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("E"), UI_BUTTON, NULL, J_RED),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y + 90, newKettleString("F"), UI_BUTTON, NULL, J_RED),
 	};
 
 	while(!WindowShouldClose())

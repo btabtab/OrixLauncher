@@ -4,6 +4,7 @@ as adding button functionality that can carry out a function pointed to by the f
 */
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include <raylib.h>
 

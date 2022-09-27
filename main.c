@@ -26,18 +26,6 @@ void renderDots(float size)
 
 void setPolyArrToCube(Polygon* p, float size)
 {
-	RealVec points[8] =
-	{
-		(RealVec){-size, -size, -size},
-		(RealVec){+size, -size, -size},
-		(RealVec){-size, -size, +size},
-		(RealVec){+size, -size, +size},
-
-		(RealVec){-size, +size, -size},
-		(RealVec){+size, +size, -size},
-		(RealVec){-size, +size, +size},
-		(RealVec){+size, +size, +size},
-	};
 
 	p[0] = testPolygon(size);
 	p[1] = testPolygon(-size);
@@ -78,7 +66,8 @@ void cubeScene(Camera cam)
 
 void cubeDemo()
 {
-	Camera cam = startup("Kettle renderer 2.0 Cube Demo", 800, 800);
+	Camera cam;
+	startup("Kettle renderer 2.0 Cube Demo", 800, 800, &cam);
 	UIDrawToDemo(cam);
 	SetCameraMode(cam, CAMERA_ORBITAL);
 
@@ -87,12 +76,12 @@ void cubeDemo()
 
 	UIElement element_arr[] =
 	{
-		generateUIElement(500, 300, 20, 20, "A", UI_CAMERA, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, "B", UI_TOKEN, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, "C", UI_TOKEN, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, "D", UI_TOKEN, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, "E", UI_TOKEN, NULL),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, "F", UI_TOKEN, NULL),
+		generateUIElement(500, 300, 20, 20, newKettleString("A"), UI_CAMERA, NULL, J_WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("B"), UI_TOKEN, NULL, J_WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("C"), UI_TOKEN, NULL, J_WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("D"), UI_TOKEN, NULL, J_WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("E"), UI_TOKEN, NULL, J_WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("F"), UI_TOKEN, NULL, J_WHITE),
 	};
 
 	while(!WindowShouldClose())

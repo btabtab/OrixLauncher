@@ -453,7 +453,7 @@ Polygon lightPolygon(Polygon* p, Light* light)
 
 	uint8_t distance = distanceBetweenRealVecs(findMiddleOfPolygon(result), light->position);
 
-	for(int i = 0; i != 3; i++)
+	// for(int i = 0; i != 3; i++)
 	{
 		result.col.r += (255 - light->tinge.r) / (sqrt(distance));
 		result.col.g += (255 - light->tinge.g) / (sqrt(distance));
