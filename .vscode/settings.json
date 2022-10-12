@@ -11,6 +11,7 @@
 	"files.associations": {
 		"vertexlightingengine.h": "c",
 		"demos.h": "c",
-		"kettlerenderer.h": "c"
+		"kettlerenderer.h": "c",
+		"polygondesigner.h": "c"
 	}
 }

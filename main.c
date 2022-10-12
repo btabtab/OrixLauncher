@@ -132,16 +132,13 @@ void cubeDemo()
 }
 #include "PolygonDesigner.h"
 
-#ifndef BSP_COMPILER
-#define BSP_COMPILER
-#endif
 
 int main()
 {
 	// VertexLightingDemo();
 	// UIDemo();
 	// polygonLightingUITest();
-	cubeDemo();
+	polygonDesignerTool();
 	// polygonDesignerTool();
 	return 0;
 }
