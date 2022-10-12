@@ -1,6 +1,8 @@
 #include <raylib.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "VersionData.h"
+
 #include "Demos.h"
 
 void renderDots(float size)
@@ -131,14 +133,9 @@ void cubeDemo()
 	}
 }
 #include "PolygonDesigner.h"
-
-
 int main()
 {
-	// VertexLightingDemo();
-	// UIDemo();
-	// polygonLightingUITest();
-	polygonDesignerTool();
-	// polygonDesignerTool();
+	verifyVersion(0x0001);
+	cubeDemo();
 	return 0;
 }
