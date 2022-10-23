@@ -90,7 +90,7 @@ float getCollisionSpaceHeight(CollisionSpace collispace)
 }
 
 //draw the collisionspace for 3D rendering.
-void renderCollisionSpace(CollisionSpace* collispace, Colour a, Colour b)
+void renderCollisionSpace(CollisionSpace* collispace, Color a, Color b)
 {
 	renderSphere(collispace->top_bound, 0.25f, a);
 	renderLine3D(collispace->top_bound, collispace->bottom_bound, averageColours(a, b));
@@ -130,7 +130,7 @@ void renderCollisionSpace(CollisionSpace* collispace, Colour a, Colour b)
 	}
 }
 //draw the collisionspace for 2D drawing.
-void drawCollisionSpace(CollisionSpace* collispace, Colour a, Colour b)
+void drawCollisionSpace(CollisionSpace* collispace, Color a, Color b)
 {
 }
 

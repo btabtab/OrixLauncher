@@ -78,12 +78,12 @@ void cubeDemo()
 
 	UIElement element_arr[] =
 	{
-		generateUIElement(500, 300, 20, 20, newKettleString("A"), UI_CAMERA, NULL, J_WHITE),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("B"), UI_TOKEN, NULL, J_WHITE),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("C"), UI_TOKEN, NULL, J_WHITE),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("D"), UI_TOKEN, NULL, J_WHITE),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("E"), UI_TOKEN, NULL, J_WHITE),
-		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("F"), UI_TOKEN, NULL, J_WHITE),
+		generateUIElement(500, 300, 20, 20, newKettleString("A"), UI_CAMERA, NULL, WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("B"), UI_TOKEN, NULL, WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("C"), UI_TOKEN, NULL, WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("D"), UI_TOKEN, NULL, WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("E"), UI_TOKEN, NULL, WHITE),
+		generateUIElement(90, 90, joystick_center_x, joystick_center_y, newKettleString("F"), UI_TOKEN, NULL, WHITE),
 	};
 
 	while(!WindowShouldClose())
@@ -122,10 +122,10 @@ void cubeDemo()
 			ClearBackground(WHITE);
 			renderMultipleUIElements(element_arr, sizeof(element_arr) / sizeof(*element_arr));
 
-			renderByte(getLight()->tinge.r, element_arr[2].position.x, element_arr[2].position.y, 20, (Colour){255, 255, 255, 255});
-			renderByte(getLight()->tinge.g, element_arr[3].position.x, element_arr[3].position.y, 20, (Colour){255, 255, 255, 255});
-			renderByte(getLight()->tinge.b, element_arr[4].position.x, element_arr[4].position.y, 20, (Colour){255, 255, 255, 255});
-			renderFloat(*getCubeSize(), element_arr[5].position.x, element_arr[5].position.y, 20, (Colour){255, 255, 255, 255});
+			renderByte(getLight()->tinge.r, element_arr[2].position.x, element_arr[2].position.y, 20, (Color){255, 255, 255, 255});
+			renderByte(getLight()->tinge.g, element_arr[3].position.x, element_arr[3].position.y, 20, (Color){255, 255, 255, 255});
+			renderByte(getLight()->tinge.b, element_arr[4].position.x, element_arr[4].position.y, 20, (Color){255, 255, 255, 255});
+			renderFloat(*getCubeSize(), element_arr[5].position.x, element_arr[5].position.y, 20, (Color){255, 255, 255, 255});
 		}
 		renderCursor(getMainCursor());
 		DrawFPS(10, 10);

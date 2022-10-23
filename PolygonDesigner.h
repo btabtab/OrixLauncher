@@ -120,9 +120,9 @@ void polygonDesignerTool()
 			ClearBackground(WHITE);
 			renderMultipleUIElements(element_arr, sizeof(element_arr) / sizeof(*element_arr));
 
-			renderByte(getLight()->tinge.r, element_arr[2].position.x, element_arr[2].position.y, 30, (Colour){255, 255, 255, 255});
-			renderByte(getLight()->tinge.g, element_arr[3].position.x, element_arr[3].position.y, 30, (Colour){255, 255, 255, 255});
-			renderByte(getLight()->tinge.b, element_arr[4].position.x, element_arr[4].position.y, 30, (Colour){255, 255, 255, 255});
+			renderByte(getLight()->tinge.r, element_arr[2].position.x, element_arr[2].position.y, 30, (Color){255, 255, 255, 255});
+			renderByte(getLight()->tinge.g, element_arr[3].position.x, element_arr[3].position.y, 30, (Color){255, 255, 255, 255});
+			renderByte(getLight()->tinge.b, element_arr[4].position.x, element_arr[4].position.y, 30, (Color){255, 255, 255, 255});
 		}
 		renderCursor(getMainCursor());
 		DrawFPS(10, 10);

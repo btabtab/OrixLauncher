@@ -36,7 +36,7 @@ typedef struct UIElement
 	RealVec position;
 	RealVec dimensions;
 	int type;
-	Colour col;
+	Color col;
 	Texture* texture;
 	RenderTexture r_texture;
 	int is_movable;
@@ -67,7 +67,7 @@ Cursor;
 // void renderMultipleUIElements(UIElement* ui_arr, int ui_count);
 // void draw3DWorldToUIElement(UIElement* ui, Camera camera, void (*WorldRenderFunction)(Camera cam));
 
-UIElement generateUIElement(int dim_x, int dim_y, int pos_x, int pos_y, KettleString name, int type, bool* flag_ptr, Colour colour)
+UIElement generateUIElement(int dim_x, int dim_y, int pos_x, int pos_y, KettleString name, int type, bool* flag_ptr, Color colour)
 {
 	UIElement ret;
 	ret.texture = NULL;
@@ -159,12 +159,12 @@ void updateMainCursor()
 
 void renderCursor(Cursor* cursor)
 {
-	Colour cols[] =
+	Color cols[] =
 	{
-		(Colour){255, 20, 20, 255},
-		(Colour){255, 160, 160, 255},
-		(Colour){255, 255, 255, 255},
-		(Colour){0, 155, 255, 255},
+		(Color){255, 20, 20, 255},
+		(Color){255, 160, 160, 255},
+		(Color){255, 255, 255, 255},
+		(Color){0, 155, 255, 255},
 	};
 	DrawCircle(cursor->position.x, cursor->position.y, 10, *(Color*)(&cols[cursor->state]));
 	DrawRing((Vector2){cursor->position.x, cursor->position.y}, 20, 30, 0, 360, 20, *(Color*)(&cols[cursor->state]));

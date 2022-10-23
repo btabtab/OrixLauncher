@@ -35,7 +35,7 @@ void renderEntity(Entity* ent, Camera cam, Light light)
 	}
 	renderBillboardWithLighting(cam, *ent->texture, ent->position, 1, light);
 	// DrawBillboard(cam, *ent->texture, ent->position, 1, RAYWHITE);
-	renderLine3D(ent->position, addRealVecs(ent->position, ent->move_direction), (Colour){255, 0, 255});
+	renderLine3D(ent->position, addRealVecs(ent->position, ent->move_direction), (Color){255, 0, 255});
 	RealVec pos = addRealVecs(ent->position, ent->move_direction);
 	DrawSphere(*((Vector3*)(&pos)), .25f, RED);
 }

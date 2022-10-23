@@ -17,13 +17,7 @@ typedef struct ByteVec
 }
 ByteVec;
 
-typedef struct Colour
-{
-	uint8_t r, g, b, alpha_channel;
-}
-Colour;
-
-#define J_WHITE (Colour){0xff, 0xff, 0xff, 0xff}
-#define J_RED (Colour){0xff, 0x00, 0x00, 0xff}
+#define J_WHITE (Color){0xff, 0xff, 0xff, 0xff}
+#define J_RED (Color){0xff, 0x00, 0x00, 0xff}
 
 #endif

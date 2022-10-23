@@ -31,7 +31,7 @@ Vertices;
 typedef struct Polygon
 {
 	Vertices verts[3];
-	Colour col;
+	Color col;
 	int ID;
 }
 Polygon;
@@ -52,7 +52,7 @@ typedef struct Light
 {
 	RealVec position;
 	float strength;
-	Colour tinge;
+	Color tinge;
 }
 Light;
 
@@ -80,10 +80,10 @@ arduino projects I have.
 #ifndef KETTLE_RENDERER_FUNC_DEFINITIONS
 #define KETTLE_RENDERER_FUNC_DEFINITIONS
 //Renders a line that goes from point A to point B.
-void renderLine3D(RealVec a, RealVec b, Colour col);
+void renderLine3D(RealVec a, RealVec b, Color col);
 
 //Renders a ball / sphere in 3D space at point "a" and with a radius of "radius".
-void renderSphere(RealVec a, float radius, Colour col);
+void renderSphere(RealVec a, float radius, Color col);
 #endif
 /*
 This is to help meet the end goal of replacing Raylib.
@@ -99,12 +99,12 @@ other libraries and platforms
 #ifndef RAYLIB_OVERRIDES
 #define RAYLIB_OVERRIDES
 
-void renderLine3D(RealVec a, RealVec b, Colour col)
+void renderLine3D(RealVec a, RealVec b, Color col)
 {
 	DrawLine3D(*((Vector3*)&a), *((Vector3*)&b), *((Color*)&col));
 }
 
-void renderSphere(RealVec a, float radius, Colour col)
+void renderSphere(RealVec a, float radius, Color col)
 {
 	DrawSphere(*((Vector3*)&a), radius, *((Color*)&col));
 }
@@ -113,14 +113,14 @@ void renderSphere(RealVec a, float radius, Colour col)
 #ifndef SCREEN_PRINTING
 #define SCREEN_PRINTING
 
-void renderFloat(float num, int x, int y, int size, Colour col)
+void renderFloat(float num, int x, int y, int size, Color col)
 {
 	char buffer[30];
 	sprintf(buffer, "%f", num);
 	DrawText(buffer, x, y, size, *((Color*)(&col)));
 }
 
-void renderByte(uint8_t num, int x, int y, int size, Colour col)
+void renderByte(uint8_t num, int x, int y, int size, Color col)
 {
 	char buffer[30];
 	sprintf(buffer, "%u", num);
@@ -138,7 +138,7 @@ float* getCubeSize()
 
 Light testLight()
 {
-	return (Light){(RealVec){0, 1, 0}, 1, (Colour){0, 0, 0, 255}};
+	return (Light){(RealVec){0, 1, 0}, 1, (Color){0, 0, 0, 255}};
 }
 
 float getPercent(float num, float percent)
@@ -149,9 +149,9 @@ float getPercent(float num, float percent)
 #ifndef KETTLE_OPERATIONS
 #define KETTLE_OPERATIONS
 
-Colour averageColours(Colour a, Colour b)
+Color averageColours(Color a, Color b)
 {
-	Colour ret = {0, 0, 0, 0};
+	Color ret = {0, 0, 0, 0};
 	ret.r = (a.r + b.r) / 2;
 	ret.g = (a.g + b.g) / 2;
 	ret.b = (a.b + b.b) / 2;
@@ -173,9 +173,9 @@ Polygon testPolygon(float size)
 	poly.verts[1].pnt = (RealVec){-0.f, -0.f, +size};
 	poly.verts[2].pnt = (RealVec){+size, -0.f, -0.f};
 	
-	poly.col = (Colour){255, 255, 255, 255};
-	poly.col = (Colour){255, 255, 255, 255};
-	poly.col = (Colour){255, 255, 255, 255};
+	poly.col = (Color){255, 255, 255, 255};
+	poly.col = (Color){255, 255, 255, 255};
+	poly.col = (Color){255, 255, 255, 255};
 	return poly;
 }
 void setPolygonsToTestSquare(float size, Polygon* polygons)
@@ -200,13 +200,13 @@ Polygon invertPolygon(Polygon p)
 	multiplyRealVecs(p.verts[2].pnt, inversion);
 	return p;
 }
-Colour averagePolygonColour(Polygon p)
+Color averagePolygonColour(Polygon p)
 {
-	Colour ret;
+	Color ret;
 	ret.r = (p.col.r + p.col.r + p.col.r) / 3;
 	ret.g = (p.col.g + p.col.g + p.col.g) / 3;
 	ret.b = (p.col.b + p.col.b + p.col.b) / 3;
-	ret.alpha_channel = (p.col.alpha_channel + p.col.alpha_channel + p.col.alpha_channel) / 3;
+	ret.a = (p.col.a + p.col.a + p.col.a) / 3;
 	return ret;
 }
 PolygonSubSet getQuadSubPolyGonSet(Polygon p);
@@ -218,7 +218,7 @@ void drawPolygonWireFrame(Polygon* poly)
 }
 void renderPolygon(Polygon* p)
 {
-	Colour avg = averagePolygonColour(*p);
+	Color avg = averagePolygonColour(*p);
 	RealVec points[3] = {p->verts[0].pnt, p->verts[1].pnt, p->verts[2].pnt};
 	DrawTriangleStrip3D(((Vector3*)points), 3, *((Color*)&avg));
 
