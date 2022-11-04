@@ -72,4 +72,17 @@ int findLongestStringInArrayOfKStrings(KettleString* k_string_arr, int amount_of
 	return ret;
 }
 
+KettleString generateRandomFileName(KettleString extension)
+{
+	KettleString ret;
+	sprintf(ret.contents, "%x-%x-%x-%x%s",
+	GetRandomValue(0, 255),
+	GetRandomValue(0, 255),
+	GetRandomValue(0, 255),
+	GetRandomValue(0, 255),
+	extension
+	);
+	return ret;
+}
+
 #endif

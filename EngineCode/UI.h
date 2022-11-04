@@ -30,6 +30,7 @@ as adding button functionality that can carry out a function pointed to by the f
 typedef void (*UIRenderFunctionPTR)(Camera);
 typedef void (*UIButtonFunctionPTR)();
 
+//Element names must be in full caps with spaces represented with '_'.
 typedef struct UIElement
 {
 	KettleString name;
