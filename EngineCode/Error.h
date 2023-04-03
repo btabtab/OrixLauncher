@@ -8,15 +8,15 @@ typedef struct Error
 }
 Error;
 
-void saveData(char* buffer, char* filename)
+void dumpLog(char* input_buffer)
 {
-	FILE* file = fopen(filename, "w");
-    fputs(buffer, file);
-	fclose(file);
+	char dump_buffer[120] = "";
+	sprintf(dump_buffer, input_buffer);
+	// saveData("dump.txt", 90, dump_buffer);
 }
 
 void throwErrorWithMessage(char* error_message)
 {
-    saveData(error_message, "ErrorDump.txt");
+    // saveData(error_message, 120, "thrown error data.txt");
 }
 #endif

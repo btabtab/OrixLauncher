@@ -3,12 +3,23 @@
 
 #define KETTLE_STRING_LENGTH 60
 
+#include <stdio.h>
+#include <raylib.h>
+
+/*
+Kettle string is a struct that is supposed to handle
+storing and generalising strings such that the user
+of this library needn't worry about string issues
+complexities.
+*/
+
 typedef struct KettleString
 {
 	char contents[KETTLE_STRING_LENGTH];
 }
 KettleString;
 
+//erases the contents of a kettle string.
 void clearKettleString(KettleString* label)
 {
 	for(int i = 0; i != KETTLE_STRING_LENGTH; i++)
@@ -72,7 +83,11 @@ int findLongestStringInArrayOfKStrings(KettleString* k_string_arr, int amount_of
 	return ret;
 }
 
-KettleString generateRandomFileName(KettleString extension)
+void stripKettleStringDown(char* buffer_to_write_to, KettleString k_string)
+{
+}
+
+KettleString generateRandomFileName(char* extension)
 {
 	KettleString ret;
 	sprintf(ret.contents, "%x-%x-%x-%x%s",

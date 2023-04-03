@@ -8,7 +8,7 @@
             "name": "Debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/${fileBasenameNoExtension}",
+            "program": "${workspaceFolder}/main",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -45,7 +45,7 @@
             "program": "${workspaceFolder}/${fileBasenameNoExtension}",
             "MIMode": "gdb",
             "windows": {
-              "program": "${workspaceFolder}/${fileBasenameNoExtension}.exe",
+              "program": "${workspaceFolder}/main.exe",
               "miDebuggerPath": "C:/raylib/mingw/bin/gdb.exe"
             },
             "osx": {

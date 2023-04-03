@@ -41,7 +41,7 @@ void polygonDesignerTool3DScene(Camera cam)
 void polygonDesignerTool()
 {
 	Camera cam;
-	startup("Polygone DesignerTool", 800, 800, &cam);
+	startup("Polygone DesignerTool", 800, 800, &cam, 60);
 	UIDrawToDemo(cam);
 	SetCameraMode(cam, CAMERA_ORBITAL);
 

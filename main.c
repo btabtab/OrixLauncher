@@ -69,7 +69,7 @@ void cubeScene(Camera cam)
 void cubeDemo()
 {
 	Camera cam;
-	startup("Kettle renderer 2.0 Cube Demo", 800, 800, &cam);
+	startup("Kettle renderer 2.0 Cube Demo", 800, 800, &cam, 60);
 	UIDrawToDemo(cam);
 	SetCameraMode(cam, CAMERA_ORBITAL);
 
@@ -132,10 +132,8 @@ void cubeDemo()
 		EndDrawing();
 	}
 }
-#include "PolygonDesigner.h"
 int main()
 {
 	verifyVersion(0x0001);
-	cubeDemo();
 	return 0;
 }

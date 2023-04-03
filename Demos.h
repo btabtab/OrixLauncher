@@ -19,7 +19,7 @@ Light* getLight()
 void VertexLightingDemo()
 {
 	Camera camera;
-	startup("Kettle renderer 1.0 Demo", 600, 600, &camera);
+	startup("Kettle renderer 1.0 Demo", 600, 600, &camera, 60);
 
 	// Environment environment = initEnvironment();
 	Polygon p[2] = {testPolygon(6.f), testPolygon(6.f)};
@@ -117,7 +117,7 @@ void UIDrawToDemo(Camera cam)
 void UIDemo()
 {
 	Camera cam;
-	startup("UI demo", 600, 600, &cam);
+	startup("UI demo", 600, 600, &cam, 60);
 	
 	SetCameraMode(cam, CAMERA_ORBITAL);
 
@@ -150,7 +150,7 @@ void UIDemo()
 void UIDemoMovableElement()
 {
 	Camera cam;
-	startup("UI demo", 600, 600, &cam);
+	startup("UI demo", 600, 600, &cam, 60);
 	
 	UIDrawToDemo(cam);
 	SetCameraMode(cam, CAMERA_ORBITAL);
@@ -220,7 +220,7 @@ void renderPolygonScene(Camera cam)
 void polygonLightingUITest()
 {
 	Camera cam;
-	startup("Kettle renderer 2.0 Demo", 800, 800, &cam);
+	startup("Kettle renderer 2.0 Demo", 800, 800, &cam, 60);
 
 	UIDrawToDemo(cam);
 	SetCameraMode(cam, CAMERA_ORBITAL);

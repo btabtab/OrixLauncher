@@ -1,8 +1,12 @@
-#include <raylib.h>
 #ifndef RAYLIBHANDLER
 #define RAYLIBHANDLER
-void startup(const char* name, int width, int height, Camera3D* camera)
+
+#include <raylib.h>
+
+bool keep_program_running;
+void startup(const char* name, int width, int height, Camera3D* camera, int frame_rate)
 {
+	keep_program_running = true;
 	InitWindow(width, height, name);
 	if(camera)
 	{
@@ -14,7 +18,7 @@ void startup(const char* name, int width, int height, Camera3D* camera)
 		camera->projection = CAMERA_PERSPECTIVE;
 		SetCameraMode(*camera, CAMERA_THIRD_PERSON);
 	}
-	SetTargetFPS(60);
+	SetTargetFPS(frame_rate);
 }
 Camera* getGlobalCamera()
 {
