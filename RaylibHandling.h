@@ -16,4 +16,9 @@ void startup(const char* name, int width, int height, Camera3D* camera)
 	}
 	SetTargetFPS(60);
 }
+Camera* getGlobalCamera()
+{
+	static Camera camera;
+	return &camera;
+}
 #endif
